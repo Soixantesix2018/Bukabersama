@@ -3,14 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pembayaran ke BCA</title>
+    <title>Pembayaran BCA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        button {
+            background-color: #0070f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        button:hover {
+            background-color: #005bb5;
+        }
+        .fallback {
+            margin-top: 20px;
+            display: none;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+    </style>
 </head>
 <body>
     <h1>Pembayaran ke Rekening BCA</h1>
-    <p>Klik tombol di bawah ini untuk langsung membuka aplikasi BCA dengan rekening tujuan:</p>
-    <button onclick="window.location.href='bca://virtualaccount/7560375608'">
-        Bayar Sekarang
-    </button>
-    <p>Pastikan Anda sudah menginstal aplikasi BCA Mobile di perangkat Anda.</p>
+    <p>Klik tombol di bawah ini untuk membuka aplikasi BCA Mobile atau lihat nomor rekening manual jika tombol tidak berfungsi.</p>
+
+    <!-- Tombol Bayar -->
+    <button id="payButton">Bayar Sekarang</button>
+
+    <!-- Fallback -->
+    <div class="fallback" id="fallback">
+        <p><strong>Nomor Rekening:</strong></p>
+        <p>7560375608 (Adelia Nabila)</p>
+        <p>Gunakan nomor rekening ini untuk transfer manual jika aplikasi BCA Mobile tidak terbuka.</p>
+    </div>
+
+    <script>
+        document.getElementById("payButton").addEventListener("click", function () {
+            // Coba buka deep link ke BCA Mobile
+            const bcaDeepLink = "bca://virtualaccount/7560375608";
+            window.location.href = bcaDeepLink;
+
+            // Fallback setelah 3 detik jika deep link gagal
+            setTimeout(() => {
+                const fallbackDiv = document.getElementById("fallback");
+                fallbackDiv.style.display = "block";
+            }, 3000); // Tunggu 3 detik
+        });
+    </script>
 </body>
 </html>
